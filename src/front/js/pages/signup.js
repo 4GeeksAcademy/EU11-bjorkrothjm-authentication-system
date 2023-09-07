@@ -37,7 +37,7 @@ export const Signup = () => {
             console.log(modalStatus)
         } else {
             console.log("User created > Redirect")
-            navigate("/")
+            navigate("/login")
         }
     };
 

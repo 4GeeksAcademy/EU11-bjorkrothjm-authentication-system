@@ -1,0 +1,14 @@
+.login-form{
+    /* max-width: 50%; */
+    margin: auto;
+    justify-content: center;
+}
+
+.submit-button{
+    /* margin: auto; */
+    text-align: center;
+}
+
+.container-custom-login{
+    width: 50%;
+}
