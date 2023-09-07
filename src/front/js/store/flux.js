@@ -4,7 +4,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			userId: "",
-			apiResponseMessage: ""
+			apiResponseMessage: "",
+			userDataLoggedIn: {user_details: {}}
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -82,7 +83,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				console.log("Store after logout", store)
 				console.log("User Logged Out")
-			}
+			},
+
+			checkUserData: async () => {
+				const token = localStorage.getItem("token");
+				console.log("Getting user data")
+				console.log(token)
+				const response = await getActions().apiFetch("/private", "GET", {}, {"Authorization": "Bearer " + token });
+				console.log("User data response: ", response)
+				const store = getStore()
+				if (response["response_code"] == 200) {
+					setStore({ ...store, userId: response["jsonData"]["user_details"]["id"],
+					 apiResponseMessage: response["jsonData"]["message"],
+					 userDataLoggedIn: response["jsonData"]["user_details"]
+					});
+					return {"user_details": response["jsonData"]["user_details"], "response_code": response["response_code"]}
+				} else {
+					setStore({ ...store});
+					return ({ "response_code": response["response_code"] })
+				}
+			},
 
 		}
 	};

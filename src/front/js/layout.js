@@ -12,6 +12,11 @@ import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 
+import { Navigate } from 'react-router-dom';
+import { useContext } from "react";
+import { Context } from "./store/appContext";
+
+
 //create your first component
 const Layout = () => {
     //the basename is used when your project is published in a subdirectory and not in the root of the domain
@@ -19,6 +24,9 @@ const Layout = () => {
     const basename = process.env.BASENAME || "";
 
     if(!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL/ >;
+
+    const { store, actions } = useContext(Context);
+    console.log("Store from Layout",store)
 
     return (
         <div>
@@ -29,6 +37,7 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         <Route element={<Signup />} path="/signup" />
                         <Route element={<Login />} path="/login" />
+                        {/* <Route element={store.userId == "" ? <Navigate to="/" /> : <Private />} path="/private" /> */}
                         <Route element={<Private />} path="/private" />
                     </Routes>
                     <Footer />
