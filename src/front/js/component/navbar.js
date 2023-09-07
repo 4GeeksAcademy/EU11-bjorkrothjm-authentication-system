@@ -20,7 +20,9 @@ export const Navbar = () => {
 						</Link>
 					</div>
 					<div className="mx-2">
-						<button className="btn btn-primary" onClick={() => actions.logoutUser()}>Logout</button>
+						<Link to="/">
+							<button className="btn btn-primary" onClick={() => actions.logoutUser()}>Logout</button>
+						</Link>
 					</div>
 				</div>
 			</nav>
